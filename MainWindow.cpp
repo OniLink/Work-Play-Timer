@@ -9,7 +9,9 @@ MainWindow::MainWindow( QWidget* parent ) :
 	ui->setupUi( this );
 	timer_counting = false;
 	countdown_time = 1800;
-	current_task = -1;
+	updateTimerDisplay();
+	current_task = task_none;
+	ui->labelCurrentTask->setText( "N/A" );
 }
 
 MainWindow::~MainWindow() {
@@ -22,11 +24,11 @@ void MainWindow::timerEvent( QTimerEvent* /*event*/ ) {
 	if( countdown_time < 0 ) {
 		/// @todo Alert
 
-		if( current_task == -1 ) {
+		if( current_task == task_free ) {
 			pickTask();
 			countdown_time = ui->sliderTimeDivision->value() * 60;
 		} else {
-			current_task = -1;
+			current_task = task_free;
 			ui->labelCurrentTask->setText( "Free Time" );
 			countdown_time = 3600 - ui->sliderTimeDivision->value() * 60;
 		}
@@ -41,12 +43,27 @@ void MainWindow::todoListItemAdd() {
 	rand_distribution = std::uniform_int_distribution<>( 0, ui->listTodo->count() - 1 );
 }
 
+void MainWindow::timerChangeLength( int length ) {
+	if( !timer_counting ) {
+		countdown_time = length * 60;
+		updateTimerDisplay();
+	}
+
+	QString time_string_buffer;
+	time_string_buffer.setNum( length );
+	ui->labelWorkTime->setText( time_string_buffer + QString( " min" ) );
+	time_string_buffer.setNum( 60 - length );
+	ui->labelPlayTime->setText( time_string_buffer + QString( " min" ) );
+}
+
 void MainWindow::timerStartStop() {
 	if( timer_counting ) {
-		ui->buttonStartStop->setText( "Start" );
-		current_task = -1;
-		ui->labelCurrentTask->setText( "N/A" );
 		killTimer( current_timer );
+		ui->buttonStartStop->setText( "Start" );
+		current_task = task_none;
+		ui->labelCurrentTask->setText( "N/A" );
+		countdown_time = ui->sliderTimeDivision->value() * 60;
+		updateTimerDisplay();
 	} else {
 		pickTask();
 		ui->buttonStartStop->setText( "Stop" );
@@ -57,6 +74,10 @@ void MainWindow::timerStartStop() {
 }
 
 void MainWindow::timerTaskComplete() {
+	if( current_task == task_free || !timer_counting ) {
+		return;
+	}
+
 	if( current_task >= 0 ) {
 		delete ui->listTodo->takeItem( current_task );
 	}
@@ -69,6 +90,10 @@ void MainWindow::timerTaskComplete() {
 }
 
 void MainWindow::timerTaskSkip() {
+	if( current_task == task_free || !timer_counting ) {
+		return;
+	}
+
 	pickTask();
 }
 
@@ -77,7 +102,7 @@ void MainWindow::pickTask() {
 		current_task = rand_distribution( rand_generator );
 		ui->labelCurrentTask->setText( ui->listTodo->item( current_task )->text() );
 	} else {
-		current_task = -1;
+		current_task = task_none;
 		ui->labelCurrentTask->setText( "N/A" );
 	}
 }

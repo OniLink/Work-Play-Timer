@@ -14,7 +14,7 @@
    <string>Work-Play Timer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_8">
+   <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -265,11 +265,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>sliderTimeDivision</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>timerChangeLength(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>444</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>todoListItemAdd()</slot>
   <slot>timerStartStop()</slot>
   <slot>timerTaskComplete()</slot>
   <slot>timerTaskSkip()</slot>
+  <slot>timerChangeLength(int)</slot>
  </slots>
 </ui>
