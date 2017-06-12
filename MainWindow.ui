@@ -14,7 +14,7 @@
    <string>Work-Play Timer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,2">
+   <layout class="QHBoxLayout" name="horizontalLayout_8">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -40,7 +40,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,0">
+     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0,0,0">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
@@ -82,89 +82,96 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
         <item>
-         <widget class="QLabel" name="labelCurrentTask">
+         <widget class="QLabel" name="label_3">
           <property name="text">
            <string>Current Task:</string>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <widget class="QLabel" name="labelCurrentTask">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QPushButton" name="buttonStartStop">
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonComplete">
+          <property name="text">
+           <string>Complete</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonSkip">
+          <property name="text">
+           <string>Skip</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QPushButton" name="buttonStartStop">
+           <widget class="QLabel" name="label">
             <property name="text">
-             <string>Start</string>
+             <string>Work:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="buttonComplete">
+           <widget class="QLabel" name="labelWorkTime">
             <property name="text">
-             <string>Complete</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="buttonSkip">
-            <property name="text">
-             <string>Skip</string>
+             <string>30 min</string>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <widget class="QSlider" name="sliderTimeDivision">
+          <property name="maximum">
+           <number>60</number>
+          </property>
+          <property name="value">
+           <number>30</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Work:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelWorkTime">
-              <property name="text">
-               <string>30 min</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QSlider" name="sliderTimeDivision">
-            <property name="maximum">
-             <number>60</number>
-            </property>
-            <property name="value">
-             <number>30</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Play:</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Play:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelPlayTime">
-              <property name="text">
-               <string>30 min</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="labelPlayTime">
+            <property name="text">
+             <string>30 min</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -177,5 +184,92 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>itemAddTodo</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>todoListItemAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>251</x>
+     <y>450</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>itemEntryTodo</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>todoListItemAdd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>105</x>
+     <y>450</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonStartStop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>timerStartStop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>519</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonComplete</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>timerTaskComplete()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSkip</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>timerTaskSkip()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>810</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>todoListItemAdd()</slot>
+  <slot>timerStartStop()</slot>
+  <slot>timerTaskComplete()</slot>
+  <slot>timerTaskSkip()</slot>
+ </slots>
 </ui>
