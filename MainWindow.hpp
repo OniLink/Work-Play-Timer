@@ -3,6 +3,7 @@
 
 #include <random>
 #include <QMainWindow>
+#include <QSoundEffect>
 
 namespace Ui {
     class MainWindow;
@@ -12,7 +13,7 @@ class MainWindow : public QMainWindow {
 	Q_OBJECT
 
 	public:
-		explicit MainWindow(QWidget *parent = 0);
+		explicit MainWindow( QWidget* parent = nullptr );
 		~MainWindow();
 
 	public slots:
@@ -35,6 +36,8 @@ class MainWindow : public QMainWindow {
 		int current_task;
 		int current_timer;
 		int countdown_time;
+
+		QSoundEffect alert;
 
 		std::random_device rand_device;
 		std::mt19937 rand_generator;

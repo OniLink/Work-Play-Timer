@@ -1,6 +1,8 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
 
+#include <iostream>
+
 MainWindow::MainWindow( QWidget* parent ) :
     QMainWindow( parent ),
     ui( new Ui::MainWindow ),
@@ -12,6 +14,7 @@ MainWindow::MainWindow( QWidget* parent ) :
 	updateTimerDisplay();
 	current_task = task_none;
 	ui->labelCurrentTask->setText( "N/A" );
+	alert.setSource( QUrl::fromLocalFile( "Resources/Alert.wav" ) );
 }
 
 MainWindow::~MainWindow() {
@@ -22,7 +25,14 @@ void MainWindow::timerEvent( QTimerEvent* /*event*/ ) {
 	countdown_time -= 1;
 
 	if( countdown_time < 0 ) {
-		/// @todo Alert
+		alert.play();
+		if( alert.status() == QSoundEffect::Null ) {
+			std::cout << "Not loaded\n";
+		} else if( alert.status() == QSoundEffect::Loading ) {
+			std::cout << "Loading\n";
+		} else if( alert.status() == QSoundEffect::Error ) {
+			std::cout << "Error\n";
+		}
 
 		if( current_task == task_free ) {
 			pickTask();
